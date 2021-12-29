@@ -25,14 +25,22 @@ class ConstraintLayout : ComponentActivity() {
     }
 }
 
+/**
+ * constraintlayout의 자식들은 모두 레퍼런스로 만들어야 한다.
+ * 각 컴포저블 모디파이어의 constrainAs()로 레퍼런스 매개변수와 연결한다.
+ * linkTo() 메서드로 컴포저블 포지션을 정한다.
+ */
 @Composable
 fun ConstraintLayoutContent() {
     ConstraintLayout {
+        // 자식 컴포넌트들을 모두 엮어 레퍼런스를 만들어야 한다.
         val (button, text) = createRefs()
 
         Button(
             onClick = {},
+            // 레퍼런스를 만든 매개 변수를 .constrainAs()로 매핑한다.
             modifier = Modifier.constrainAs(button) {
+                //lintTo()로 포지셔닝을 한다.
                 top.linkTo(parent.top, margin = 16.dp)
             }
         ) {
