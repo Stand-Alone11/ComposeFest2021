@@ -1,11 +1,14 @@
 package com.ms.composelayout
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -21,7 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.ms.composelayout.ui.theme.ComposeLayoutTheme
+import java.util.*
 
+private const val TAG = "ComplexCustomLayout_싸피"
 class ComplexCustomLayout : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +45,11 @@ val topics = listOf(
 
 @Composable
 private fun BodyContent(modifier: Modifier = Modifier) {
-    StaggeredGrid(modifier = modifier) {
-        for (topic in topics) {
-            Chip(modifier = Modifier.padding(8.dp), text = topic)
+    Row(modifier = modifier.horizontalScroll(rememberScrollState())) {
+        StaggeredGrid(modifier = modifier) {
+            for (topic in topics) {
+                Chip(modifier = Modifier.padding(8.dp), text = topic)
+            }
         }
     }
 }
@@ -94,7 +101,7 @@ fun StaggeredGrid(
             placeable
         }
 
-        val width = rowWidths.maxOrNull()?.coerceIn(constraints.minHeight.rangeTo(constraints.maxHeight)) ?: constraints.minWidth
+        val width = rowWidths.maxOrNull()?.coerceIn(constraints.minWidth.rangeTo(constraints.maxWidth)) ?: constraints.minWidth
         val height = rowHeights.sumOf {it}.coerceIn(constraints.minHeight.rangeTo(constraints.maxHeight))
 
         val rowY = IntArray(rows) { 0 }
