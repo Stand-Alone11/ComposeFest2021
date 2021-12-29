@@ -3,6 +3,7 @@ package com.ms.composelayout
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -34,22 +35,36 @@ class ConstraintLayout : ComponentActivity() {
 fun ConstraintLayoutContent() {
     ConstraintLayout {
         // 자식 컴포넌트들을 모두 엮어 레퍼런스를 만들어야 한다.
-        val (button, text) = createRefs()
+        val (button1, button2, text) = createRefs()
 
         Button(
             onClick = {},
             // 레퍼런스를 만든 매개 변수를 .constrainAs()로 매핑한다.
-            modifier = Modifier.constrainAs(button) {
+            modifier = Modifier.constrainAs(button1) {
                 //lintTo()로 포지셔닝을 한다.
                 top.linkTo(parent.top, margin = 16.dp)
             }
         ) {
-            Text("Button")
+            Text("Button1")
         }
 
         Text("Text", modifier = Modifier.constrainAs(text) {
-            top.linkTo(button.bottom, margin = 16.dp)
+            top.linkTo(button1.bottom, margin = 16.dp)
+            centerAround(button1.end)
         })
+
+        // end barrier는 엮인 컴포넌트들 중에 가장 오른쪽 끝을 기준으로 한다.
+        // rtl 이면 왼쪽 끝이 되겠다.
+        val barrier = createEndBarrier(text, button1)
+        Button(
+            onClick = {},
+            modifier = Modifier.constrainAs(button2) {
+                top.linkTo(parent.top, margin = 16.dp)
+                start.linkTo(barrier)
+            }
+        ) {
+            Text("button2")
+        }
     }
 }
 
