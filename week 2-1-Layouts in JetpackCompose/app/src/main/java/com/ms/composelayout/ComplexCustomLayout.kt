@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -43,9 +44,14 @@ val topics = listOf(
     "Religion", "Social sciences", "Technology", "TV", "Writing"
 )
 
+// 모디파이어의 메서드 체이닝은 순서에 따라 적용이 달라진다.
 @Composable
 private fun BodyContent(modifier: Modifier = Modifier) {
-    Row(modifier = modifier.horizontalScroll(rememberScrollState())) {
+    Row(modifier = modifier
+        .background(color = Color.LightGray, shape = RectangleShape)
+        .padding(16.dp)
+        .size(200.dp)
+        .horizontalScroll(rememberScrollState())) {
         StaggeredGrid(modifier = modifier) {
             for (topic in topics) {
                 Chip(modifier = Modifier.padding(8.dp), text = topic)
