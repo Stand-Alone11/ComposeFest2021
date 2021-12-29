@@ -36,9 +36,16 @@ fun DefaultPreview4() {
     }
 }
 
+/**
+ * 컴포즈의 children는 단 한번만 measure 한다.
+ * 그러나 가끔 children의 정보가 필요할 때가 있다.
+ * 이때 Intrinsics를 사용한다.
+ */
 @Composable
 fun TwoTexts(modifier: Modifier = Modifier, text1: String, text2: String) {
-    Row(modifier = modifier) {
+    // Modifier.height(IntrinsicSize.Min)을 사용하면
+    // Row의 children 모두 IntrinsicSize.Min으로 강제한다.
+    Row(modifier = modifier.height(IntrinsicSize.Min)) {
         Text(
             modifier = Modifier
                 .weight(1f)
