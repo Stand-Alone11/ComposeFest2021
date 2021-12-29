@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.atLeast
 import com.ms.composelayout.ui.theme.ComposeLayoutTheme
 
 class ConstraintLayout : ComponentActivity() {
@@ -20,9 +22,29 @@ class ConstraintLayout : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeLayoutTheme {
-                ConstraintLayoutContent()
+//                ConstraintLayoutContent()
+                LargeConstraintLayout()
             }
         }
+    }
+}
+
+@Composable
+fun LargeConstraintLayout() {
+    ConstraintLayout {
+        val text = createRef()
+
+        //constraintlayout의 중앙 가이드라인
+        val guideline = createGuidelineFromStart(fraction = .5f)
+        //예상과는 다르게 parent의 중앙에서 시작하지 않는다.
+        Text("This is a very very very very very very very long text",
+            Modifier.constrainAs(text) {
+                linkTo(start = guideline, end = parent.end)
+                //preferredWrapContent는 constraint에 맞게 wrapcontent를 한다.
+                //또한 최소 크기 강제도 가능하다.
+                width = Dimension.preferredWrapContent.atLeast(500.dp)
+            }
+        )
     }
 }
 
@@ -72,6 +94,7 @@ fun ConstraintLayoutContent() {
 @Composable
 fun DefaultPreview3() {
     ComposeLayoutTheme {
-        ConstraintLayoutContent()
+//        ConstraintLayoutContent()
+        LargeConstraintLayout()
     }
 }
