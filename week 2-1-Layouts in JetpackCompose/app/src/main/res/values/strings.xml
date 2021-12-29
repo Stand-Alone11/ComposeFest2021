@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ComposeLayout</string>
     <string name="title_activity_complex_custom_layout">ComplexCustomLayout</string>
+    <string name="title_activity_constraint_layout">ConstraintLayout</string>
 </resources>
