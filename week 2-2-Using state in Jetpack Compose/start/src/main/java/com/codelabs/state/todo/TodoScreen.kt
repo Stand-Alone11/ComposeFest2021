@@ -83,10 +83,10 @@ fun TodoScreen(
     }
 }
 
+// change field to parameter for state hoisting
 @Composable
-fun TodoInputTextField(modifier: Modifier) {
-    val (text, setText) = remember { mutableStateOf("") }
-    TodoInputText(text, setText, modifier)
+fun TodoInputTextField(text: String, onTextChange: (String) -> Unit, modifier: Modifier) {
+    TodoInputText(text, onTextChange, modifier)
 }
 
 @Composable
