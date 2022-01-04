@@ -16,6 +16,7 @@
 
 package com.codelabs.state.todo
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,7 @@ import kotlin.random.Random
  * @param onAddItem (event) request an item be added
  * @param onRemoveItem (event) request an item be removed
  */
+private const val TAG = "TodoScreen_싸피"
 @Composable
 fun TodoScreen(
     items: List<TodoItem>,
@@ -54,10 +56,9 @@ fun TodoScreen(
     onRemoveItem: (TodoItem) -> Unit
 ) {
     Column {
-        TodoItemInputBackground(elevate = true, modifier = Modifier.fillMaxWidth()) {
+        TodoItemInputBackground(elevate = true, modifier = Modifier) {
             TodoItemInput(onItemComplete = onAddItem)
         }
-
         LazyColumn(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(top = 8.dp)
@@ -102,12 +103,18 @@ fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
                 text = text,
                 onTextChange = setText,
                 modifier = Modifier
-                .weight(1f)
-                .padding(end = 8.dp)
+                    .weight(1f)
+                    .padding(end = 8.dp)
             )
-            TodoEditButton(onClick = { /*TODO*/ },
+            TodoEditButton(
+                onClick = {
+                    onItemComplete(TodoItem(text))
+                    Log.d(TAG, "TodoItemInput: $text")
+                    setText("") // clear internal text
+                },
                 text = "Add",
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
+                enabled = text.isNotBlank()
             )
         }
     }
