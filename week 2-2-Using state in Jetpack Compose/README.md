@@ -103,6 +103,10 @@ recompostion이 일어날 때, stateless composable은 매번 새로 그려진�
 - 그 외에는 로컬 변수로 설정한다.
 - remember는 Composable이 지워지면 같이 지워진다. 따라서 중요한 정보는 remeber로 저장하지 말자.
 
+### Built-in Composable
+
+compose는 `undirectional data flow`를 위해 설계되었기 때문에 기존의 EditText처럼 상태 변화 리스너로 ui를 조작하는 건 맞지 않다. 컴포저블은 stateless인 버전을 최소 하나는 제공한다. 이는 stateful ui를 구성하기 위해 내부 상태가 없는 컴포저블이여야 하기 때문이다.(중복 상태 방지)
+
 ```
 Copyright 2020 The Android Open Source Project
 
