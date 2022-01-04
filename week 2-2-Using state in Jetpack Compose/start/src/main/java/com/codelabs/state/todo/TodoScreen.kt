@@ -91,13 +91,17 @@ fun TodoInputTextField(text: String, onTextChange: (String) -> Unit, modifier: M
 
 @Composable
 fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
+    val (text, setText) = remember { mutableStateOf("") }
     Column {
         Row(
             Modifier
                 .padding(horizontal = 16.dp)
                 .padding(top = 16.dp)
         ) {
-            TodoInputTextField(modifier = Modifier
+            TodoInputTextField(
+                text = text,
+                onTextChange = setText,
+                modifier = Modifier
                 .weight(1f)
                 .padding(end = 8.dp)
             )
