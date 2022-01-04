@@ -54,6 +54,10 @@ fun TodoScreen(
     onRemoveItem: (TodoItem) -> Unit
 ) {
     Column {
+        TodoItemInputBackground(elevate = true, modifier = Modifier.fillMaxWidth()) {
+            TodoItemInput(onItemComplete = onAddItem)
+        }
+
         LazyColumn(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(top = 8.dp)
@@ -151,3 +155,7 @@ fun PreviewTodoRow() {
     val todo = remember { generateRandomTodoItem() }
     TodoRow(todo = todo, onItemClicked = {}, modifier = Modifier.fillMaxWidth())
 }
+
+@Preview
+@Composable
+fun PreviewTodoItemInput() = TodoItemInput(onItemComplete = { })
