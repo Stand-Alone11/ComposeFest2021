@@ -106,6 +106,7 @@ fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
             TodoEditButton(
                 onClick = {
                     onItemComplete(TodoItem(text))
+                    setIcon(TodoIcon.Default)
                     setText("") // clear internal text
                 },
                 text = "Add",
